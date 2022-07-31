@@ -1,0 +1,70 @@
+﻿@using ComunicationClientAPP.Pages
+@inject NavigationManager NavigationManager
+
+
+<MudPaper Elevation="0" Class="" Height="93vh" Outlined="true">
+    <MudPaper Elevation="0" Class="pa-2">
+        <MudText Class="">Daily summary</MudText>
+    </MudPaper>
+    <MudPaper Elevation="0" Class="bg-light-gray pa-2 rounded-0">
+        <MudTextField @bind-Value="SearchField" Class="bg-white" Margin="Margin.Dense" Label="" Placeholder="Buscar por mansaje o contacto" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Search" />
+    </MudPaper>
+    <MudTabs Elevation="0" Class="p-0 m-0" Rounded="false" ApplyEffectsToContainer="true">
+        <MudTabPanel Text="Abiertas" Icon="@Icons.Filled.MarkAsUnread" Class="tab-padding">
+            <div class="d-flex flex-column height-64 p-0 m-0">
+                <MudList Clickable="true" Class="p-0 m-0">
+                    @foreach (var user in ChatUsers)
+                    {
+                        <MudListItem Class="p-0" OnClick="@(() => LoadUserChat(user.UserId,user.Email))">
+                            @if (user.UserId == ContactId)
+                            {
+                                <div class="d-flex flex-row bg-light-green text-white pa-4">
+                                    <div class="mr-4">
+                                        <MudBadge Class="" Overlap="true" Color="Color.Success" Icon="@Icons.Outlined.Whatsapp">
+                                            <MudAvatar Class="custom-avator">
+                                                @user.Email.ToUpper().FirstOrDefault()
+                                            </MudAvatar>
+                                        </MudBadge>
+                                    </div>
+                                    <div>
+                                        <MudText Typo="Typo.body2">@user.Email</MudText>
+                                        <MudText Typo="Typo.caption" Class="font-xxsmal">@user.UserId</MudText>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex flex-row pa-4">
+                                    <div class="mr-4">
+                                        <MudBadge Class="" Overlap="true" Icon="@Icons.Outlined.Whatsapp">
+                                            <MudAvatar Color="Color.Dark" Class="custom-avator">@user.Email.ToUpper().FirstOrDefault()</MudAvatar>
+                                        </MudBadge>
+                                    </div>
+                                    <div>
+                                        <MudText Typo="Typo.body2" Class="">@user.Email</MudText>
+                                        <MudText Typo="Typo.caption" Class="font-xxsmal">@user.UserId</MudText>
+                                    </div>
+                                </div>
+                            }
+
+                        </MudListItem>
+                    }
+                </MudList>
+            </div>
+        </MudTabPanel>
+    </MudTabs>
+</MudPaper>
+
+@code {
+    public string SearchField { get; set; }
+    DateTime? date = DateTime.Today;
+    public string url = "/MobileChat";
+    async Task LoadUserChat(string userId, string email)
+    {
+         ContactEmail = "Faizan@gmail.com";
+         ContactId = "Faizan@gmail.com";
+         ContactEmail = email;
+            ContactId = userId;
+        NavigationManager.NavigateTo(url +"/"+ContactId+"/"+ContactEmail );
+    }
+}

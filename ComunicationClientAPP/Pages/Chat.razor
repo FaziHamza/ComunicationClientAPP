@@ -1,0 +1,193 @@
+﻿@inject IDialogService DialogService
+@using ComunicationClientAPP.Session
+@inject MySession _mySession
+@inject NavigationManager NavigationManager
+<div class="d-flex fl!importantx-grow-1 flex-row">
+    <MudPaper Elevation="0" MinWidth="350px" Class="" Height="93vh" Outlined="true">
+        <MudPaper Elevation="0" Class="pa-2">
+            <MudText Class="">Daily summary @check</MudText>
+        </MudPaper>
+        <MudPaper Elevation="0" Class="pa-2 rounded-0">
+            <MudTextField @bind-Value="SearchField" Class="bg-white" Margin="Margin.Dense" Label="" Placeholder="Search by message or contact" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Search" />
+        </MudPaper>
+        <MudTabs Outlined="true" Elevation="0" Class="p-0 m-0" Rounded="false" ApplyEffectsToContainer="true" Border="false">
+            <MudTabPanel Text="Chat Box" Class="tab-padding" Icon="@Icons.Filled.MarkAsUnread">
+                <div class="d-flex flex-column height-64 p-0 m-0">
+                    <MudList Clickable="true" Class="p-0 m-0">
+                        @foreach (var user in ChatUsers)
+                        {
+                            <MudListItem Class="p-0" OnClick="@(() => LoadUserChat(user.UserId,user.Email))">
+                                @if (user.UserId == ContactId)
+                                {
+                                    <div class="d-flex flex-row bg-light-green text-white pa-4">
+                                        <div class="mr-4">
+                                            <MudBadge Class="" Overlap="true" Color="Color.Success" Icon="@Icons.Outlined.Whatsapp">
+                                                <MudAvatar Class="custom-avator">
+                                                    @user.Email.ToUpper().FirstOrDefault()
+                                                </MudAvatar>
+                                            </MudBadge>
+                                        </div>
+                                        <div>
+                                            <MudText Typo="Typo.body2" Class="">@user.Email</MudText>
+                                            <MudText Typo="Typo.caption" Class="font-xxsmal">@user.UserId</MudText>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="d-flex flex-row pa-4">
+                                        <div class="mr-4">
+                                            <MudBadge Class="" Overlap="true" Icon="@Icons.Outlined.Whatsapp">
+                                                <MudAvatar Color="Color.Dark" Class="custom-avator">@user.Email.ToUpper().FirstOrDefault()</MudAvatar>
+                                            </MudBadge>
+                                        </div>
+                                        <div>
+                                            <MudText Typo="Typo.body2" Class="">@user.Email</MudText>
+                                            <MudText Typo="Typo.caption" Class="font-xxsmal">@user.UserId</MudText>
+                                        </div>
+                                    </div>
+                                }
+
+                            </MudListItem>
+                        }
+                    </MudList>
+                </div>
+            </MudTabPanel>
+            @*<MudPaper Elevation="0" Outlined="true" Class="pt-2 rounded-0">
+                <MudButton Class="" Variant="Variant.Filled" Color="Color.Error" FullWidth="true">Close expired conversations</MudButton>
+            </MudPaper>*@
+        </MudTabs>
+    </MudPaper>
+    @*----------end First Column---------*@
+
+    <MudPaper Class="flex-grow-1 ">
+        @if (string.IsNullOrEmpty(ContactId))
+        {
+            <div class="py-10 ">
+            </div>
+        }
+        else
+        {
+        <MudPaper Class="pa-2 rounded-0 bg-light-green" Outlined="true">
+            <MudGrid Spacing="0">
+                <MudItem xs="12" md="7" Class="">
+                    <div class="d-flex flex-row">
+                        <div class="mr-6">
+                            <MudBadge Class="mt-2" Overlap="true" Color="Color.Success" Icon="@Icons.Outlined.Whatsapp">
+                                <MudAvatar Size="Size.Medium">
+                                    A
+                                </MudAvatar>
+                            </MudBadge>
+                        </div>
+                         <div>
+                        <MudText Typo="Typo.body2" Class="pt-4"> @ContactEmail</MudText>
+                        </div>
+                    </div>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+        }
+        <div class="d-flex flex-column pa-6 height-70" id="chatContainer">
+            @foreach (var message in messages)
+            {
+                @if (message.FromUserId == ContactId)
+                {
+                    <div class="d-flex flex-row flex-row-reverse">
+                        <div class="ml-4">
+                            <MudAvatar>@message.FromUserId.ToUpper().FirstOrDefault()</MudAvatar>
+                        </div>
+                        <div class="mb-4">
+                            <MudText Typo="Typo.body2" Class="chat-style-right chat-right-color">
+                                @message.Message
+                                <br>
+                                <span Class="font-xxsmal" style="float:right">@message.CreatedDate.ToString("hh:mm tt")</span>
+                            </MudText>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex flex-row ">
+                        <div class="mr-4">
+                            <MudAvatar>@message.FromUserId.ToUpper().FirstOrDefault()</MudAvatar>
+                        </div>
+                        <div class="mb-4">
+                            <MudText class="chat-left-color chat-style-left" Typo="Typo.body2">
+                                @message.Message
+                                <br>
+                                <span Class="font-xxsmal" style="float:right">@message.CreatedDate.ToString("hh:mm tt")</span>
+                            </MudText>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <MudPaper Elevation="0" Class="d-flex pb-2 mx-0 mt-5">
+            <MudPaper Class="d-flex mx-2" Width="100%">
+                <MudTextField T="string" Placeholder="Enter your message..." DisableUnderLine="true" Class="mb-2 mt-0 pt-0 mx-4" Lines="1"
+                              @bind-Value="CurrentMessage" For="@(()=> CurrentMessage)" Margin="Margin.Dense"
+                              Adornment="Adornment.End" AdornmentIcon="@Icons.Outlined.EmojiEmotions" />
+            </MudPaper>
+            <MudSpacer />
+            <MudFab Class="bg-white custom-icon mr-2 mt-2" StartIcon="@Icons.Material.Outlined.Send" Size="Size.Small" OnClick="SubmitAsync"/>
+            <MudFab Class="bg-white custom-icon mr-2 mt-2" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" HtmlTag="label" for="fileInput" />
+            <InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />
+
+        </MudPaper>
+    </MudPaper>
+
+
+    <MudPaper Elevation="0" MinWidth="350px" Class="" Height="93vh" Outlined="true">
+        <MudPaper Elevation="0" Class="pa-2">
+        </MudPaper>
+        <MudPaper Elevation="0" Class="pa-2 rounded-0">
+            <MudTextField @bind-Value="SearchField" Class="bg-white" Margin="Margin.Dense" Label="" Placeholder="Search by message or contact" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Search" />
+        </MudPaper>
+        <MudTabs Elevation="0" Class="p-0 m-0" Rounded="false" ApplyEffectsToContainer="true">
+            <MudTabPanel Text="Subject" Icon="@Icons.Filled.MarkAsUnread" Class="tab-padding">
+                <div class="d-flex flex-column height-64 p-0 m-0">
+                    <MudList Clickable="true" Class="p-0 m-0">
+                    </MudList>
+                </div>
+            </MudTabPanel>
+        </MudTabs>
+    </MudPaper>
+</div>
+
+
+@code {
+    public string SearchField { get; set; }
+    public string check { get; set; }
+
+    protected override void OnInitialized()
+    {
+        check = _mySession.GetUserValue("UserId");
+        if(check == null || check == "")
+        {
+             NavigationManager.NavigateTo("/");
+        }
+    }
+    DateTime? date = DateTime.Today;
+    private void ScheduleBox()
+    {
+        var options = new DialogOptions
+            {
+                CloseOnEscapeKey = true,
+                MaxWidth = MaxWidth.Small,
+                NoHeader = false
+            };
+        //DialogService.Show<ScheduleDialog>("Recordatorio para:  ", options);
+    }
+    IList<IBrowserFile> files = new List<IBrowserFile>();
+    private void UploadFiles(InputFileChangeEventArgs e)
+    {
+      
+        foreach (var file in e.GetMultipleFiles())
+        {
+            files.Add(file);
+        }
+        //TODO upload the files to the server
+    }
+}

@@ -1,0 +1,98 @@
+﻿@page "/MobileChat"
+@page "/MobileChat/{contactId}/{contactEmail}"
+
+@inject NavigationManager navManager
+
+<div class="d-flex fl!importantx-grow-1 flex-row">
+    <MudPaper Class="flex-grow-1 ">
+        @if (string.IsNullOrEmpty(ContactId))
+        {
+            <div class="py-10 ">
+            </div>
+        }
+        else
+        {
+            <MudPaper Class="pa-2 rounded-0 bg-light-green" Outlined="true">
+                <MudGrid Spacing="0">
+                    <MudItem xs="12" md="7" Class="">
+                        <div class="d-flex flex-row">
+                            <div class="mr-6">
+                                <MudBadge Class="mt-2" Overlap="true" Color="Color.Success" Icon="@Icons.Outlined.Whatsapp">
+                                    <MudAvatar Size="Size.Medium">
+                                        A
+                                    </MudAvatar>
+                                </MudBadge>
+                            </div>
+                            <div>
+                                <MudText Typo="Typo.body2" Class="pt-4"> @ContactEmail</MudText>
+                            </div>
+                        </div>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        }
+        <div class="d-flex flex-column pa-6 height-70" id="chatContainer">
+            @foreach (var message in messages)
+            {
+                @if (message.FromUserId == ContactId)
+                {
+                    <div class="d-flex flex-row flex-row-reverse">
+                        <div class="ml-4">
+                            <MudAvatar>@message.FromUserId.ToUpper().FirstOrDefault()</MudAvatar>
+                        </div>
+                        <div class="mb-4">
+                            <MudText Typo="Typo.body2" Class="chat-style-right chat-right-color">
+                                @message.Message
+                                <br>
+                                <span Class="font-xxsmal" style="float:right">@message.CreatedDate.ToString("hh:mm tt")</span>
+                            </MudText>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex flex-row ">
+                        <div class="mr-4">
+                            <MudAvatar>@message.FromUserId.ToUpper().FirstOrDefault()</MudAvatar>
+                        </div>
+                        <div class="mb-4">
+                            <MudText class="chat-left-color chat-style-left" Typo="Typo.body2">
+                                @message.Message
+                                <br>
+                                <span Class="font-xxsmal" style="float:right">@message.CreatedDate.ToString("hh:mm tt")</span>
+                            </MudText>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <MudPaper Elevation="0" Class="d-flex pb-2 mx-0 mt-5">
+            <MudPaper Class="d-flex mx-2" Width="100%">
+                <MudTextField T="string" Placeholder="Enter your message..." DisableUnderLine="true" Class="mb-2 mt-0 pt-0 mx-4" Lines="1"
+                              @bind-Value="CurrentMessage" For="@(()=> CurrentMessage)" Margin="Margin.Dense"
+                              Adornment="Adornment.End" AdornmentIcon="@Icons.Outlined.EmojiEmotions" />
+            </MudPaper>
+            <MudSpacer />
+            <MudFab Class="bg-white custom-icon mr-2 mt-2" StartIcon="@Icons.Material.Outlined.Send" Size="Size.Small" OnClick="SubmitAsync" />
+            <MudFab Class="bg-white custom-icon mr-2 mt-2" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" HtmlTag="label" for="fileInput" />
+            <InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />
+
+        </MudPaper>
+    </MudPaper>
+    
+</div>
+
+@code {
+    DateTime? date = DateTime.Today;
+    IList<IBrowserFile> files = new List<IBrowserFile>();
+    private void UploadFiles(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles())
+        {
+            files.Add(file);
+        }
+        //TODO upload the files to the server
+    }
+}

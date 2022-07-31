@@ -1,0 +1,76 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ComunicationClientAPP
+build_property.RootNamespace = ComunicationClientAPP
+build_property.ProjectDir = C:\Users\Fazi\Downloads\ComunicationClientAPP_2\ComunicationClientAPP\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Fazi\Downloads\ComunicationClientAPP_2\ComunicationClientAPP
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/Chat.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/LoginPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5QYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/MainChat.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbkNoYXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/Mobile/MobileChatDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9iaWxlXE1vYmlsZUNoYXREaXNwbGF5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/Mobile/MobileUser.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9iaWxlXE1vYmlsZVVzZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Shared/MobileNav.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1vYmlsZU5hdi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-zpi4hu7ki5
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-l1udm7l048
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fazi/Downloads/ComunicationClientAPP_2/ComunicationClientAPP/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,32 @@
+﻿@page "/login"
+
+<MudGrid Spacing="0">
+    <MudItem xs="3"></MudItem>
+    <MudItem xs="6">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Login Form</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Email</MudText>
+                <MudTextField T="string" Placeholder="Enter your email" Margin="Margin.Dense"></MudTextField>
+                <MudText Class="pt-4">Password</MudText>
+                <MudTextField T="string" Placeholder="Enter password" Margin="Margin.Dense"></MudTextField>
+            </MudCardContent>
+            <MudCardActions>
+                <MudItem xs="3" />
+                <MudItem xs="6">
+                    <MudButton Class="ml-8 text-center" Variant="Variant.Filled" Color="Color.Success">Login</MudButton>
+                    <MudButton Class="ml-8" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+                </MudItem>
+                <MudItem xs="3" />
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+}

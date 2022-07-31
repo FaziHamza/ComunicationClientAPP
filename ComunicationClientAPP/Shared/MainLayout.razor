@@ -1,0 +1,94 @@
+﻿@inherits LayoutComponentBase
+@using ComunicationClientAPP.Session
+@inject MySession _mySession
+@inject NavigationManager NavigationManager
+<MudThemeProvider />
+<MudDialogProvider FullWidth="true"
+                   MaxWidth="MaxWidth.Medium"
+                   CloseButton="true"
+                   DisableBackdropClick="true"
+                   NoHeader="true"
+                   Position="DialogPosition.Center"
+                   CloseOnEscapeKey="true" />
+<MudSnackbarProvider />
+<MudHidden Breakpoint="Breakpoint.Lg" Invert="true">
+    <MudLayout>
+        <MudAppBar Class="bg-nav-primary" Elevation="0" Dense=true>
+            <MudText Typo="Typo.h6" Class="ml-4 ">SignalR Chat App</MudText>
+            <MudSpacer />
+            <MudButton Class="text-right text-white" Variant="Variant.Filled"  OnClick="Logout">Logout</MudButton>
+            @*<LoginDisplay />*@
+        </MudAppBar>
+        <MudDrawer Elevation="2" Class="bg-nav-primary " @bind-Open="@openStart" Anchor="Anchor.Start" Breakpoint="@breakpoint" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" PreserveOpenState="@preserveOpenState">
+            <NavMenu />
+        </MudDrawer>
+        <MudMainContent>
+            <MudGrid Spacing="0">
+                <MudItem xs="12" md="@bodyDesign" Class="" @onclick="ProfileBody">
+                    @Body
+                </MudItem>
+            </MudGrid>
+        </MudMainContent>
+    </MudLayout>
+</MudHidden>
+<MudHidden Breakpoint="Breakpoint.Sm" Invert="true">
+    <MudLayout>
+        <MudAppBar Class="bg-nav-primary" Elevation="0" Dense=true>
+            <MudText Typo="Typo.body2" Class="ml-4 ">SignalR Chat App</MudText>
+            <MudSpacer />
+        </MudAppBar>
+        <MudDrawer Elevation="2" Class="bg-nav-primary " @bind-Open="@openStart" Anchor="Anchor.Start" Breakpoint="@breakpoint" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" PreserveOpenState="@preserveOpenState">
+            <MobileNav />
+        </MudDrawer>
+        <MudMainContent>
+            <MudGrid Spacing="0">
+                <MudItem xs="12" sm="12" Class="" @onclick="ProfileBody">
+                    @Body
+                </MudItem>
+            </MudGrid>
+        </MudMainContent>
+    </MudLayout>
+</MudHidden>
+
+@code {
+    public string SearchField { get; set; }
+    bool preserveOpenState = true;
+    Breakpoint breakpoint = Breakpoint.Sm;
+    public int bodyDesign { get; set; } = 12;
+    public int bodyDesignsm { get; set; } = 12;
+    public int detailDesign { get; set; }
+    public int detailDesignsm { get; set; }
+    public int isSelcted { get; set; } = 7;
+    bool openStart = false;
+    bool openEnd = false;
+    DateTime? date = DateTime.Today;
+
+    void Logout()
+    {
+        _mySession.RemoveSession("UserId");
+        _mySession.RemoveSession("access_token");
+         NavigationManager.NavigateTo("/");
+    }
+
+    void ToggleStartDrawer()
+    {
+        openStart = !openStart;
+    }
+
+    void ToggleEndDrawer()
+    {
+        openEnd = !openEnd;
+    }
+    void CrruntState(int pram)
+    {
+        bodyDesign = 10;
+        detailDesign = 2;
+        isSelcted = pram;
+    }
+    void ProfileBody()
+    {
+        bodyDesign = 12;
+        isSelcted = 10;
+        detailDesign = 0;
+    }
+}

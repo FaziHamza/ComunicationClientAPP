@@ -1,0 +1,98 @@
+﻿@page "/"
+@using ComunicationClientAPP.Session
+@inject NavigationManager NavigationManager
+@inject MySession _mySession
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<MudGrid Spacing="0">
+    <MudItem xs="3"></MudItem>
+    <MudItem xs="6">
+        <MudCard>
+            @if (IsValid)
+            {
+            <MudCardHeader>
+               <CardHeaderContent>
+                    <MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Error">
+                        Your Email and Password did not match
+                    </MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            }
+           
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Login Form</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Email </MudText>
+                <MudTextField @bind-Value="Email" Placeholder="Enter your user name" Margin="Margin.Dense"></MudTextField>
+                <MudText Class="pt-4">Password</MudText>
+                <MudTextField @bind-Value="Password"  Placeholder="Enter password" Margin="Margin.Dense"></MudTextField>
+                <MudText Class="pt-4">Mac Address</MudText>
+                <MudTextField @bind-Value="MacAddress"   Placeholder="Enter mac address" Margin="Margin.Dense"></MudTextField>
+            </MudCardContent>
+            <MudCardActions>
+                <MudItem xs="3" />
+                <MudItem xs="6">
+                    <MudButton Class="ml-8 text-center" OnClick="login" Variant="Variant.Filled" Color="Color.Success">Login</MudButton>
+                    <MudButton Class="ml-8" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+                </MudItem>
+                <MudItem xs="3" />
+            </MudCardActions>
+            
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    public string Email { get; set; }
+    public string Password { get; set; }
+    public string MacAddress { get; set; }
+    public bool IsValid { get; set; } = false;
+    
+
+    public class InputModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string MacAddress { get; set; }
+        public bool IsValid { get; set; } = false;
+    }
+
+    async void  login()
+    {
+        IsValid = false;
+        if (!string.IsNullOrEmpty(Email)  || !string.IsNullOrEmpty(Password)|| !string.IsNullOrEmpty(MacAddress))
+        {
+            InputModel inputModel = new InputModel();
+            inputModel.MacAddress = MacAddress;
+            inputModel.Password = Password;
+            inputModel.Email = Email;
+
+            var response = await AuthenticateUser(inputModel);
+               NavigationManager.NavigateTo("/Chat");
+
+               
+        }
+        else
+        {
+            IsValid = true;  
+
+        }
+    }
+        private async Task<string> AuthenticateUser(InputModel input)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                string serverlessBaseURI = Configuration["BaseURI"];
+                using (var response = await httpClient.GetAsync(serverlessBaseURI +"Chatlogin?UserName=" + input.Email + "&Password=" + input.Password + "&MACAddress=" + input.MacAddress))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    return apiResponse;
+                }
+            }            
+        }
+}
